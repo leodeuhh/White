@@ -9,16 +9,18 @@ namespace TestStack.White.AutomationElementSearch
     {
         static readonly Dictionary<string, Func<AutomationElement.AutomationElementInformation, object, bool>> ValueMatchers =
             new Dictionary<string, Func<AutomationElement.AutomationElementInformation, object, bool>>();
+
         readonly List<Condition> conditions = new List<Condition>();
 
         static AutomationSearchCondition()
         {
-            ValueMatchers[AutomationElement.NameProperty.ProgrammaticName] = (information, value) => information.Name.Equals(value);
-            ValueMatchers[AutomationElement.AutomationIdProperty.ProgrammaticName] = (information, value) => information.AutomationId.Equals(value);
-            ValueMatchers[AutomationElement.ClassNameProperty.ProgrammaticName] = (information, value) => information.ClassName.Equals(value);
+            ValueMatchers[AutomationElement.NameProperty.ProgrammaticName] = (information, value) => information.Name == value.ToString();
+            ValueMatchers[AutomationElement.AutomationIdProperty.ProgrammaticName] = (information, value) => information.AutomationId == value.ToString();
+            ValueMatchers[AutomationElement.ClassNameProperty.ProgrammaticName] = (information, value) => information.ClassName == value.ToString();
             ValueMatchers[AutomationElement.ProcessIdProperty.ProgrammaticName] =
                 (information, value) => information.ProcessId.ToString().Equals(value.ToString());
             ValueMatchers[AutomationElement.ControlTypeProperty.ProgrammaticName] = (information, value) => information.ControlType.Id.Equals(value);
+            ValueMatchers[AutomationElement.FrameworkIdProperty.ProgrammaticName] = (information, value) => string.IsNullOrEmpty(information.FrameworkId) || information.FrameworkId == value.ToString();
         }
 
         public AutomationSearchCondition(Condition condition)
@@ -137,6 +139,7 @@ namespace TestStack.White.AutomationElementSearch
                     if (match && !and) return true;
                 }
             }
+
             return true;
         }
 

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Automation;
+using TestStack.White.Configuration;
 using TestStack.White.UIItems;
 using TestStack.White.UIItems.Custom;
 using TestStack.White.UIItems.ListBoxItems;
@@ -119,7 +120,7 @@ namespace TestStack.White.Mappings
             return controlDictionaryItem.Select(c => c.ControlType).ToArray();
         }
 
-        public virtual Type GetTestControlType(string className, string name, ControlType controlType, string frameWorkId, bool isNativeControl)
+        public virtual Type GetTestControlType(string className, string name, ControlType controlType, string frameWorkId, bool isNativeControl, bool secondTry = false)
         {
             //We want to be working with null, not an empty string
             if (frameWorkId == string.Empty) frameWorkId = null;
@@ -163,6 +164,10 @@ namespace TestStack.White.Mappings
                 if (isPrimary.Length == 1)
                     return isPrimary.Single().TestControlType;
 
+                //If multiple controls have been found, try again with specified default framework
+                if(!secondTry)
+                    return GetTestControlType(className, name, controlType, CoreAppXmlConfiguration.Instance.DefaultFrameworkId, isNativeControl, secondTry:true);
+                
                 throw new ControlDictionaryException(string.Format(
                    "Multiple TestControls found for ControlType={0} and FrameworkId:{1} - {2}",
                    controlType.LocalizedControlType, frameWorkId,

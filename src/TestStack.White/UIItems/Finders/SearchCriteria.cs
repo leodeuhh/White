@@ -165,7 +165,12 @@ namespace TestStack.White.UIItems.Finders
 
         public virtual SearchCriteria AndOfFramework(WindowsFramework framework)
         {
-            conditions.Insert(0, SearchConditionFactory.CreateForFrameworkId(framework.FrameworkId()));
+            return AndOfFramework(framework.FrameworkId());
+        }
+
+        public virtual SearchCriteria AndOfFramework(string frameworkId)
+        {
+            conditions.Insert(0, SearchConditionFactory.CreateForFrameworkId(frameworkId));
             return this;
         }
 

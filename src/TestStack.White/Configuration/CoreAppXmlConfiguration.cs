@@ -38,6 +38,7 @@ namespace TestStack.White.Configuration
             DefaultValues.Add("DoubleClickInterval", 0);
             DefaultValues.Add("MoveMouseToGetStatusOfHourGlass", true);
             DefaultValues.Add("KeepOpenOnDispose", false);
+            DefaultValues.Add("DefaultFrameworkId", WindowsFramework.None.FrameworkId());
         }
 
         public static ICoreConfiguration Instance
@@ -208,6 +209,12 @@ namespace TestStack.White.Configuration
         {
             get { return Convert.ToBoolean(UsedValues["KeepOpenOnDispose"]); }
             set { SetUsedValue("KeepOpenOnDispose", value); }
+        }
+
+        public virtual string DefaultFrameworkId
+        {
+            get { return UsedValues["DefaultFrameworkId"]; }
+            set { SetUsedValue("DefaultFrameworkId", value); }
         }
     }
 }

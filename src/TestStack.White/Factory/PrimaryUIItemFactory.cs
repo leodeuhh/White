@@ -68,7 +68,7 @@ namespace TestStack.White.Factory
         {
             if (searchCriteria.IsIndexed)
             {
-                UIItemCollection collection = CreateAll(searchCriteria, actionListener, null);
+                UIItemCollection collection = CreateAll(searchCriteria, actionListener, CoreAppXmlConfiguration.Instance.DefaultFrameworkId);
                 return searchCriteria.IndexedItem(collection);
             }
             return dictionaryMappedItemFactory.Create(Finder.Descendant(searchCriteria.AutomationCondition), actionListener,
@@ -77,6 +77,8 @@ namespace TestStack.White.Factory
 
         public virtual UIItemCollection CreateAll(SearchCriteria searchCriteria, IActionListener actionListener, string defaultFrameworkId)
         {
+            if (!string.IsNullOrEmpty(defaultFrameworkId))
+                searchCriteria = searchCriteria.AndOfFramework(defaultFrameworkId);
             return new UIItemCollection(Finder.Descendants(searchCriteria.AutomationSearchCondition), actionListener, searchCriteria.CustomItemType);
         }
 

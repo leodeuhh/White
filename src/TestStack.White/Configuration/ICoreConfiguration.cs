@@ -20,6 +20,7 @@ namespace TestStack.White.Configuration
         /// In Milliseconds
         /// </summary>
         int BusyTimeout { get; set; }
+
         int FindWindowTimeout { get; set; }
         bool WaitBasedOnHourGlass { get; set; }
         DirectoryInfo WorkSessionLocation { get; set; }
@@ -39,10 +40,13 @@ namespace TestStack.White.Configuration
         int MaxElementSearchDepth { get; set; }
         int DoubleClickInterval { get; set; }
         bool MoveMouseToGetStatusOfHourGlass { get; set; }
+
         /// <summary>
         /// Flag to allow keeping the <see cref="TestStack.White.Application"/> and <see cref="TestStack.White.UIItems.WindowItems.Window" />
         /// open after White has disposed it's objects.
         /// </summary>
-        bool KeepOpenOnDispose { get;set;}
+        bool KeepOpenOnDispose { get; set; }
+
+        string DefaultFrameworkId { get; set; }
     }
 }

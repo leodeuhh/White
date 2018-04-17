@@ -234,7 +234,14 @@ UI actions on window needing mouse would not work in area not falling under the 
 
         private void WaitForWindow()
         {
-            NativeWindow.WaitForInputIdle(new IntPtr(AutomationElement.Current.NativeWindowHandle), TimeSpan.FromSeconds(1));
+            try
+            {
+                NativeWindow.WaitForInputIdle(new IntPtr(AutomationElement.Current.NativeWindowHandle), TimeSpan.FromMilliseconds(CoreAppXmlConfiguration.Instance.BusyTimeout));
+            }
+            catch (UnauthorizedAccessException)
+            {
+                //Window is most closed already
+            }
         }
 
         protected virtual void WaitForProcess()

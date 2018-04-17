@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Automation;
+using TestStack.White.Configuration;
 using TestStack.White.Factory;
 using TestStack.White.Finder;
 using TestStack.White.Mappings;
@@ -19,7 +20,7 @@ namespace TestStack.White.UIItems.Container
         private ContainerItemFactory cachedContainerItemFactory;
 
         public CurrentContainerItemFactory(PrimaryUIItemFactory primaryUIItemFactory, InitializeOption initializeOption, AutomationElement automationElement,
-                                           IActionListener listener)
+            IActionListener listener)
         {
             this.automationElement = automationElement;
             actionListener = listener;
@@ -60,10 +61,11 @@ namespace TestStack.White.UIItems.Container
 
         public virtual List<T> FindAll<T>()
         {
+            var frameworkId = string.IsNullOrWhiteSpace(automationElement.Current.FrameworkId) ? CoreAppXmlConfiguration.Instance.DefaultFrameworkId : automationElement.Current.FrameworkId;
             return ControlDictionary.Instance
-                .GetControlType(typeof (T), automationElement.Current.FrameworkId)
+                .GetControlType(typeof(T), frameworkId)
                 .SelectMany(ct => current
-                    .GetAll(SearchCriteria.ByControlType(ct), automationElement.Current.FrameworkId)
+                    .GetAll(SearchCriteria.ByControlType(ct), frameworkId)
                     .OfType<T>())
                 .ToList();
         }
@@ -75,7 +77,8 @@ namespace TestStack.White.UIItems.Container
 
         public virtual UIItemCollection FindAll(SearchCriteria criteria)
         {
-            return current.GetAll(criteria, automationElement.Current.FrameworkId);
+            var frameworkId = string.IsNullOrWhiteSpace(automationElement.Current.FrameworkId) ? CoreAppXmlConfiguration.Instance.DefaultFrameworkId : automationElement.Current.FrameworkId;
+            return current.GetAll(criteria, frameworkId);
         }
     }
 }
