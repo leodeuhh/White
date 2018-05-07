@@ -342,5 +342,15 @@ namespace TestStack.White.InputDevices
         {
             actionListener.ActionPerformed(new Action(ActionType.WindowMessage));
         }
+
+        public virtual void MouseButtonDown(MouseButton mouseButton)
+        {
+            MouseWin32.MouseButtonDown(mouseButton);
+        }
+
+        public virtual void MouseButtonUp(MouseButton mouseButton)
+        {
+            MouseWin32.MouseButtonUp(mouseButton);
+        }
     }
 }

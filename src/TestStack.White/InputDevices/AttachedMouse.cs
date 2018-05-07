@@ -216,6 +216,16 @@ namespace TestStack.White.InputDevices
             ActionPerformed();
         }
 
+        public virtual void MouseButtonDown(MouseButton mouseButton)
+        {
+            mouse.MouseButtonDown(mouseButton);
+        }
+
+        public virtual void MouseButtonUp(MouseButton mouseButton)
+        {
+            mouse.MouseButtonUp(mouseButton);
+        }
+
         protected virtual void ActionPerformed()
         {
             mouse.ActionPerformed(actionListener);

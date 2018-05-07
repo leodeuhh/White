@@ -177,5 +177,15 @@ namespace TestStack.White.InputDevices
         /// </summary>
         /// <param name="position"><see cref="Point"/> where to position the Mouse Cursor to</param>
         void Move(Point position);
+
+        /// <summary>
+        /// Holds the specified mouse button down
+        /// </summary>
+        void MouseButtonDown(MouseButton mouseButton);
+
+        /// <summary>
+        /// Lifts the specified mouse button up
+        /// </summary>
+        void MouseButtonUp(MouseButton mouseButton);
     }
 }

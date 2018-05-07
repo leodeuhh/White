@@ -42,6 +42,7 @@ namespace TestStack.White.Mappings
             items.AddPrimary(typeof(Tab), ControlType.Tab, true);
             items.AddPrimary(typeof(ListView), ControlType.DataGrid);
             items.AddPrimary(typeof(ToolStrip), ControlType.ToolBar);
+            items.AddPrimary(typeof(Button), ControlType.SplitButton);
 
             items.AddWin32Primary(typeof(MenuBar), ControlType.MenuBar);
             items.AddWinFormPrimary(typeof(MenuBar), ControlType.MenuBar);
